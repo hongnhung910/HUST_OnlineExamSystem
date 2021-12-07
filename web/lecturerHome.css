@@ -1,0 +1,87 @@
+.lecturerHome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.nav-logout {
+    background-color:#2C9CDB;
+    border-radius: 5px;
+}
+
+.navbar {
+    filter: drop-shadow(0px 4px 36px rgb(182, 182, 182));
+}
+.courses-title {
+    margin: 100px auto 16px;
+    text-align: center;
+}
+.courses-container {
+    background-color: #fff;
+    padding: 16px 131px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: relative;
+}
+.course-container {
+    background: rgb(60,150,199);
+    background: linear-gradient(282deg, rgba(60,150,199,0.79) 0%, rgba(153,201,229,0.86) 100%);
+    border-radius: 10px;
+    width: 360px;
+    height: 360px;
+    margin-bottom: 90px;
+    cursor: pointer;
+}
+.course-info {
+    padding: 32px;
+}
+
+.course-avt {
+    margin: auto;
+    display: block;
+}
+.course-name {
+    font-size: 32px;
+    color: #0D0060;
+    margin-top: 16px;
+    text-align: center;
+}
+.course-time {
+    font-size: 24px;
+    text-align: center;
+    color: #5a5a5a;
+}
+.course-extra {
+    display: flex;
+    justify-content: space-evenly;
+    color: #5a5a5a;
+}
+.course-students {
+
+}
+.course-exams {
+
+}
+
+.add-course {
+    position: absolute;
+    min-width: 100px;
+    min-height: 40px;
+    top: -80px;
+    right: 64px;
+    border-radius: 5px;
+    border-color: #2C9CDB;
+    background-color: #fff;
+}
+.count {
+    text-align: center;
+    display: block;
+}
+.more-btn {
+    border-color: #2C9CDB;
+    background-color: #fff;
+    margin: auto;
+    display: block;
+    margin-bottom: 32px;
+}

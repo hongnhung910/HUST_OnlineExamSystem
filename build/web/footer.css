@@ -1,0 +1,26 @@
+
+body {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+footer {
+    color: #ffffff;
+    padding-top: 2rem;
+}
+
+hr.light {
+    border-top: 1px solid #ffffff;
+    width: 75%;
+    margin-top: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+footer a {
+    color: #ffffff;
+}
+
+

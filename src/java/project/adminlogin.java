@@ -84,6 +84,8 @@ public class adminlogin extends HttpServlet {
                         HttpSession hs = request.getSession();
                         RequestDispatcher d = request.getRequestDispatcher("adminlogin.jsp");
                         hs.setAttribute("err", "User Credentials Incorrect");
+                        hs.removeAttribute("email");
+                        hs.removeAttribute("pass");
                         d.forward(request,response);
                         rs.close();
                         ps.close();

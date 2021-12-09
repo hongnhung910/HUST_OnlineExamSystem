@@ -16,12 +16,12 @@ public class MySQLConnUtils {
             throws ClassNotFoundException, SQLException {
         // Note: Change the connection parameters accordingly.
         String driverName = "com.mysql.jdbc.Driver";
-        String connectionURL = "jdbc:mysql://localhost:3306/login_accounts?characterEncoding=utf8";
-        String dbuser = "root";
-        String dbpass = "Meoluoi910@";
-        Class.forName("com.mysql.jdbc.Driver");
-
-        Connection conn = DriverManager.getConnection(connectionURL, dbuser, dbpass);
+        String databaseName = "login_accounts";
+        String connectionURL = "jdbc:mysql://localhost:3306/"+databaseName+"?characterEncoding=utf8";
+        String db_user = "root";
+        String db_pass = "Meoluoi910@";
+        Class.forName(driverName);
+        Connection conn = DriverManager.getConnection(connectionURL, db_user, db_pass);
         return conn;
     }
 

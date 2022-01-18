@@ -1,0 +1,51 @@
+#content-container {
+
+}
+#student-title {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+#personal-infor {
+
+}
+.infor-title {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.personal-infor-content {
+    display: flex;
+    justify-content: space-between;
+}
+.infor-content-col1 {
+    width: 300px;
+}
+.content-col1-avt {
+    width: 300px;
+}
+.content-col1-mssv {
+    text-align: center;
+    font-size: 2rem;
+}
+.infor-content-col2 {
+    font-size: 1.6rem;
+}
+.content-col2-row {
+    margin-bottom: 20px;
+}
+.infor-content-col3 {
+    font-size: 1.6rem;
+}
+.content-col3-row {
+    margin-bottom: 20px;
+}
+
+.content-col {
+    font-size: 1.6rem;
+}
+.content-col-row {
+    margin-bottom: 20px;
+}
+
+#courses-infor {
+    font-size: 1.6rem;
+}

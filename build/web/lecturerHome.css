@@ -23,6 +23,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     position: relative;
+    color: #000;
 }
 .course-container {
     background: rgb(60,150,199);

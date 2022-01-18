@@ -78,8 +78,7 @@ public class login extends HttpServlet {
                         HttpSession hs = request.getSession(false);
                         hs.setAttribute("std_name", name);
                         hs.setAttribute("std_email", emailid);
-                        RequestDispatcher rd = request.getRequestDispatcher("studentHome.jsp");
-                        //RequestDispatcher rd = request.getRequestDispatcher("exam1.html");
+                        RequestDispatcher rd = request.getRequestDispatcher("studentHome.jsp");       
                         rd.forward(request, response);
                     }
                     else{

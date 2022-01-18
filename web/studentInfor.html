@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Profile</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+        <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="./index.css">
+        <link rel="stylesheet" type="text/css" href="./lecturerHome.css">
+        <link rel="stylesheet" href="./courseInside.css">
+        <link rel="stylesheet" href="./takeExam.css">
+        <link rel="stylesheet" href="./entranceExam.css">
+        <link rel="stylesheet" href="./studentInfor.css">
+    </head>
+    <body>
+        
+        <div id="content-container">
+            <div class="exam-header">
+                <img class="logo exam-logo" src="logoEn.png">
+                <div class="exam-student">
+                    <div class="exam-student-name">Vu Trong Nghia</div>
+                    <img src="./AVT.jpg" alt="" class="exam-student-avt">
+                    <button class="btn btn-primary exam-student-logout">
+                        <a class="submit-link" href="./login.jsp">Logout</a>
+                    </button>
+                </div>
+            </div>
+        
+            <h1 id="student-title" class="exam-course-name">Thông tin sinh viên</h1>
+    
+            <div class="exam-question" id="personal-infor">
+                <h2 class="personal-infor-title infor-title">Thông tin cá nhân</h2>
+                <div class="personal-infor-content">
+                    <div class="infor-content-col1">
+                        <img src="./AVT.jpg" alt="avt sinh vien" class="content-col1-avt">
+                        <div class="content-col1-mssv">MSSV: 20172720</div>
+                    </div>
+                    <div class="infor-content-col2">
+                        <div class="content-col2-row">Họ và tên : Vũ Trọng Nghĩa</div>
+                        <div class="content-col2-row">Năm vào trường : 2017</div>
+                        <div class="content-col2-row">Bậc đào tạo : Đại học đại trà</div>
+                        <div class="content-col2-row">Chương trình : Kỹ thuật điện tử - viễn thông-2017</div>
+                        <div class="content-col2-row">Khoa/Viện quản lý : Viện Điện tử - Viễn thông</div>
+                        <div class="content-col2-row">Tình trạng học tập : Học</div>
+                    </div>
+                    <div class="infor-content-col3">
+                        <div class="content-col3-row">Giới tính : Nam</div>
+                        <div class="content-col3-row">Lớp : ĐTVT.03-K62</div>
+                        <div class="content-col3-row">Khóa học : 62</div>
+                        <div class="content-col3-row">Email : nghia.vt172720@sis.hust.edu.vn</div>
+                    </div>
+                </div>
+            </div>
+            <div class="exam-question" id="courses-infor">
+                <h2 class="courses-infor-title infor-title">Thông tin các khóa học</h2>
+                <table class="table courses-infor-content">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id khóa học</th>
+                        <th scope="col">Tên khóa học</th>
+                        <th scope="col">Ngày bắt đầu</th>
+                        <th scope="col">Số bài thi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Kiến trúc máy tính</td>
+                        <td>11/12/2021</td>
+                        <td>12</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Lập trình nâng cao</td>
+                        <td>11/12/2021</td>
+                        <td>15</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>Trí tuệ nhân tạo</td>
+                        <td>11/12/2021</td>
+                        <td>9</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                
+            </div>
+            <div class="exam-question" id="courses-infor">
+                <h2 class="courses-infor-title infor-title">Lịch sử tham gia thi</h2>
+                <table class="table courses-infor-content">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id bài làm</th>
+                        <th scope="col">Tên bài thi</th>
+                        <th scope="col">Tên khóa học</th>
+                        <th scope="col">Thời gian</th>
+                        <th scope="col">Điểm thi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Exam 1: Cấu trúc tập lệnh Risc-v</td>
+                        <td>Kiến trúc máy tính</td>
+                        <td>January 18, 2022 08:40:00</td>
+                        <td>8.5</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Exam 1: Lập trình Java Core cơ bản</td>
+                        <td>Lập trình nâng cao</td>
+                        <td>January 18, 2022 08:40:00</td>
+                        <td>9</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>Exam 1: Các giải thuật tìm kiếm</td>
+                        <td>Trí tuệ nhân tạo</td>
+                        <td>January 18, 2022 08:40:00</td>
+                        <td>10</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                
+            </div>
+        </div>
+        
+    
+        <!-- Footer -->
+        <footer style="background-image: url('footer.png');">
+            <div class="container-fluid padding">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <hr class="light">
+                        <h5> <i class="fa fa-info-circle" aria-hidden="true"></i> More Info</h5>
+                        <hr class="light">
+                        <p><b>Hanoi University of Science and Technology © 2021</b></p>
+                        <p> <i class="fa fa-phone-square" aria-hidden="true"></i> +84 243 869 2222</p>
+                        <p> <i class="fa fa-envelope" aria-hidden="true"></i> hcth@hust.edu.vn</p>
+                        <p> <i class="fa fa-map-marker" aria-hidden="true"></i> 1 Dai Co Viet Road, Ha Noi, Viet Nam</p>
+                    </div>
+                    <div class="col-md-4">
+                        <hr class="light" />
+                        <h5> <i class="fa fa-calendar" aria-hidden="true"></i> Working Hours</h5>
+                        <hr class="light" />
+                        <p>Monday: 9PM-5PM</p>
+                        <p>Saturday:10AM-4PM</p>
+                        <p>Sunday: Closed</p>
+                    </div>
+                    <div class="col-md-4">
+                        <hr class="light">
+                        <h5> <i class="fa fa-link" aria-hidden="true"></i> Quick Links</h5>
+                        <hr class="light" />
+                        <p><a href="https://en.hust.edu.vn/home">About HUST</a></p>
+                        <p><a href="https://ctt.hust.edu.vn/">Other services</a></p>
+                        <p><a href="https://en.hust.edu.vn/accreditation-results?p_p_id=58&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&saveLastPath=false&_58_struts_action=%2Flogin%2Flogin#">Any questions</a></p>
+                        <p><a href="https://www.google.com/maps/place/Hanoi+University+of+Science+%26+Technology+(HUST)/@21.007025,105.843136,16z/data=!4m5!3m4!1s0x0:0x55e92a5b07a97d03!8m2!3d21.0070253!4d105.843136?hl=en-US">Map</a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

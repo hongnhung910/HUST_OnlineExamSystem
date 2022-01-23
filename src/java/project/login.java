@@ -51,9 +51,9 @@ public class login extends HttpServlet {
             ResultSet rs = null;
             
             String driverName="com.mysql.jdbc.Driver";  
-            String url = "jdbc:mysql://localhost:3306/login_accounts?characterEncoding=utf8";
+            String url = "jdbc:mysql://localhost:3306/hustdb?autoReconnect=true&useSSL=false";
             String dbuser = "root";
-            String dbpass = "Meoluoi910@";
+            String dbpass = "31101999";
             String sql = "select * from students where std_email=? and std_password=?";
             
             String name = "";

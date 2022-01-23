@@ -40,9 +40,9 @@
             <sql:setDataSource 
                 var="db" 
                 driver="com.mysql.jdbc.Driver"
-                url="jdbc:mysql://localhost:3306/login_accounts?characterEncoding=utf8"
+                url="jdbc:mysql://localhost:3306/hustdb?autoReconnect=true&useSSL=false"
                 user="root"
-                password="Meoluoi910@"></sql:setDataSource>
+                password="31101999"></sql:setDataSource>
             <sql:query var="listcourse" dataSource="${db}" >
                 SELECT * FROM courses;
             </sql:query>

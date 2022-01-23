@@ -37,7 +37,7 @@
                 <img class="logo exam-logo" src="logoEn.png">
                 <div class="exam-student">
                     <div class="exam-student-name">Vu Trong Nghia</div>
-                    <img src="images/iconsmale.jpg" alt="" class="exam-student-avt">
+                    <img src="AVT.jpg" alt="" class="exam-student-avt">
                     <button class="btn btn-primary exam-student-logout">
                         <a class="submit-link" href="index.jsp">Logout</a>
                     </button>
@@ -50,7 +50,7 @@
                 <h2 class="personal-infor-title infor-title">Thông tin cá nhân</h2>
                 <div class="personal-infor-content">
                     <div class="infor-content-col1">
-                        <img src="students.jpg" alt="Profile" class="content-col1-avt">
+                        <img src="AVT.jpg" alt="Profile" class="content-col1-avt">
                         <div class="content-col1-mssv">MSSV: 20172720</div>
                     </div>
                     <div class="infor-content-col2">

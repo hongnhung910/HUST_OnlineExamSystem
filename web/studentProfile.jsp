@@ -4,7 +4,30 @@
     Author     : hongn
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="hust.onlineexam.utils.convertDateTime"%>
+<%@page import="hust.onlineexam.utils.OnlineExamDAO"%>
+<%@page import="hust.onlineexam.dbobjects.Exam"%>
+<%@page import="hust.onlineexam.utils.courseDAO"%>
+<%@page import="hust.onlineexam.dbobjects.Course"%>
+<%@page import="hust.onlineexam.utils.TakeExamDAO"%>
+<%@page import="hust.onlineexam.utils.MySQLConnUtils"%>
+<%@page import="java.util.List"%>
+<%@page import="hust.onlineexam.dbobjects.TakeExam"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="hust.onlineexam.dbobjects.Student"%>
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    Student user = (Student) request.getSession().getAttribute("user");
+    if (user != null) {
+        request.setAttribute("user", user);
+    }
+
+    Connection conn = MySQLConnUtils.getSQLServerConnection();
+    List<TakeExam> takeExams = TakeExamDAO.getAllTakeExam(conn, user.getStd_id());
+
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,13 +46,15 @@
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="./index.css">
         <link rel="stylesheet" type="text/css" href="./lecturerHome.css">
+        <link rel="stylesheet" href="./studentInfor.css">
         <link rel="stylesheet" href="./courseInside.css">
         <link rel="stylesheet" href="./takeExam.css">
         <link rel="stylesheet" href="./entranceExam.css">
-        <link rel="stylesheet" href="./studentInfor.css">
+
     </head>
     <body>
 
+<<<<<<< HEAD
         
         <div id="content-container"  style="color: #696969;">
 
@@ -41,15 +66,45 @@
                     <button class="btn btn-primary exam-student-logout">
                         <a class="submit-link" href="index.jsp">Logout</a>
                     </button>
+=======
+        <header>
+            <!--Navigation Bar-->
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-light">
+                <img src="logoEn.png">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#" style="color: #696969; font-size: 18px">${user.getStd_name()}</a>
+                        </li>
+                        <li class="nav-item">
+                            <img src="iconsfemale.jpg" alt="" class="exam-student-avt" style="margin-right: 30px;">
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="studentHome.jsp" style="color: #696969; font-size: 18px; margin-right: 30px;"><b>Courses</b></a>
+                        </li>
+
+                        <li class="nav-item nav-logout">
+                            <a class="nav-link" href="index.jsp" style="color: #fff; font-size: 18px">Logout</a>
+                        </li>
+                    </ul>
+>>>>>>> 307be542e3a538fb6c9ce0c65b6ed7634150f2a7
                 </div>
-            </div>
-        
-            <h1 id="student-title" class="exam-course-name">Thông tin sinh viên</h1>
+            </nav>
+        </header>
+
+        <div id="content-container"  style="color: #696969; margin: 50px 50px 50px 50px;">
+
+            <h1 id="student-title" class="exam-course-name" style="padding: 50px;">Thông tin sinh viên</h1>
 
             <div class="exam-question" id="personal-infor">
                 <h2 class="personal-infor-title infor-title">Thông tin cá nhân</h2>
                 <div class="personal-infor-content">
                     <div class="infor-content-col1">
+<<<<<<< HEAD
                         <img src="AVT.jpg" alt="Profile" class="content-col1-avt">
                         <div class="content-col1-mssv">MSSV: 20172720</div>
                     </div>
@@ -60,90 +115,69 @@
                         <div class="content-col2-row">Chương trình : Kỹ thuật điện tử - viễn thông-2017</div>
                         <div class="content-col2-row">Khoa/Viện quản lý : Viện Điện tử - Viễn thông</div>
                         <div class="content-col2-row">Tình trạng học tập : Học</div>
+=======
+                        <img src="iconsfemale.jpg" alt="Profile" class="content-col1-avt" style="width: 200px;height: 200px; margin-left: 50px; border-radius: 50%;">
+>>>>>>> 307be542e3a538fb6c9ce0c65b6ed7634150f2a7
                     </div>
                     <div class="infor-content-col3">
-                        <div class="content-col3-row">Giới tính : Nam</div>
-                        <div class="content-col3-row">Lớp : ĐTVT.03-K62</div>
-                        <div class="content-col3-row">Khóa học : 62</div>
-                        <div class="content-col3-row">Email : nghia.vt172720@sis.hust.edu.vn</div>
+                        <div class="content-col3-row">Họ và tên : <%=user.getStd_name()%></div>
+                        <div class="content-col3-row">MSSV : <%=user.getStd_id()%></div>
+                        <div class="content-col3-row">Khoa/Viện quản lý : Viện <%=user.getStd_faculty()%></div>
+                        <div class="content-col3-row">Lớp : <%=user.getStd_class()%></div>
+                    </div>
+                    <div class="infor-content-col3" style="margin-right: 50px;">
+                        <div class="content-col3-row">Giới tính : <%=user.getStd_gender()%></div>
+                        <div class="content-col3-row">Ngày sinh : <%=user.getStd_DOB()%></div>
+                        <div class="content-col3-row">Email : <%=user.getStd_email()%></div>
+                        <div class="content-col3-row">Số điện thoại : <%=user.getStd_phone()%></div>
                     </div>
                 </div>
             </div>
+
             <div class="exam-question" id="courses-infor">
-                <h2 class="courses-infor-title infor-title">Thông tin các khóa học</h2>
-                <table class="table courses-infor-content">
-                    <thead>
+                <h2 class="courses-infor-title infor-title">Kết quả các bài thi</h2>
+                <table class="table table-ligh table-hover courses-infor-content">
+                    <thead class="thead-light">
                         <tr>
-                            <th scope="col">Id khóa học</th>
-                            <th scope="col">Tên khóa học</th>
-                            <th scope="col">Ngày bắt đầu</th>
-                            <th scope="col">Số bài thi</th>
+                            <th scope="col">Mã học phần</th>
+                            <th scope="col">Tên học phần</th>
+                            <th scope="col">Bài kiểm tra</th>
+                            <th scope="col">Ngày thi</th>
+                            <th scope="col">Điểm số</th>
+
                         </tr>
                     </thead>
                     <tbody>
+                        <%
+                            if (!takeExams.isEmpty()) {
+                                for (TakeExam exam : takeExams) {
+                                    String examID = exam.getExamID();
+                                    Exam examinfo = OnlineExamDAO.getExamInfo(conn, examID);
+                                    Course courseinfo = courseDAO.getCourseInfo(conn, examinfo.getCourse_id());
+
+                        %>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Kiến trúc máy tính</td>
-                            <td>11/12/2021</td>
-                            <td>12</td>
+                            <td><%=examinfo.getCourse_id().toUpperCase()%></td>
+                            <td><%=courseinfo.getCourse_name()%></td>
+                            <td><%=examinfo.getExam_name()%></td>
+                            <td><%=convertDateTime.datetimeFormater(examinfo.getExam_date_start(), examinfo.getExam_time_start())%></td>
+                            <td><%=exam.getGrade()%></td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Lập trình nâng cao</td>
-                            <td>11/12/2021</td>
-                            <td>15</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Trí tuệ nhân tạo</td>
-                            <td>11/12/2021</td>
-                            <td>9</td>
-                        </tr>
+                        <%
+                                }
+                            } else {
+                                out.println("There is no completed exam ");
+                            }
+                        %>
+
+
                     </tbody>
                 </table>
-
             </div>
-            <div class="exam-question" id="courses-infor">
-                <h2 class="courses-infor-title infor-title">Lịch sử tham gia thi</h2>
-                <table class="table courses-infor-content">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id bài làm</th>
-                            <th scope="col">Tên bài thi</th>
-                            <th scope="col">Tên khóa học</th>
-                            <th scope="col">Thời gian</th>
-                            <th scope="col">Điểm thi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Exam 1: Cấu trúc tập lệnh Risc-v</td>
-                            <td>Kiến trúc máy tính</td>
-                            <td>January 18, 2022 08:40:00</td>
-                            <td>8.5</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Exam 1: Lập trình Java Core cơ bản</td>
-                            <td>Lập trình nâng cao</td>
-                            <td>January 18, 2022 08:40:00</td>
-                            <td>9</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Exam 1: Các giải thuật tìm kiếm</td>
-                            <td>Trí tuệ nhân tạo</td>
-                            <td>January 18, 2022 08:40:00</td>
-                            <td>10</td>
-                        </tr>
-                    </tbody>
-                </table>
 
-            </div>
         </div>
 
-        <%@include file="footer.jsp"%>
+        <jsp:include page="footer.jsp"/>
 
     </body>
 </html>

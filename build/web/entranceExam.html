@@ -29,7 +29,7 @@
             <div class="static-items">
                 <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
                 <button id="start-btn" class="btn submit-btn btn-primary">
-                    <a class="submit-link" href="#" onclick="startExam('January 16, 2022 20:30:00')">Start</a>
+                    <a class="submit-link" href="#">Start</a>
                 </button>
             </div>
         </nav>
@@ -39,7 +39,7 @@
                 <img class="logo exam-logo" src="logoEn.png">
                 <div class="exam-student">
                     <div class="exam-student-name">Vu Trong Nghia</div>
-                    <img src="./AVT.jpg" alt="" class="exam-student-avt">
+                    <a href="./studentInfor.html"><img src="./AVT.jpg" alt="AVT" class="exam-student-avt"></a>
                     <button class="btn btn-primary exam-student-logout">
                         <a class="submit-link" href="./login.jsp">Logout</a>
                     </button>
@@ -82,8 +82,12 @@
                     </div>
                 </div>
                 <div class="exam-question" id="waiting-area">
-                    <div class="waiting-noti">Làm ơn chờ đợi, bài thi sẽ bắt đầu trong 10 phút nữa</div>
-                    <img src="./waiting.png" alt="waiting" class="waiting-img">
+                    <div class="alert-noti waiting-noti">Làm ơn chờ đợi, bài thi sẽ bắt đầu trong 10 phút nữa</div>
+                    <img src="./waiting.png" alt="late" class="waiting-img">
+                </div>
+                <div class="exam-question" id="expired-area">
+                    <div class="alert-noti expired-noti">Đã hết giờ làm bài</div>
+                    <img src="./expired.png" alt="expired" class="expired-img">
                 </div>
             </div>
         </div>
@@ -123,183 +127,6 @@
             </div>
         </footer>
 
-    <script>
-        //Các hàm quản lý thời gian
-        function showTime(){
-            var date = new Date();
-            var h = date.getHours(); // 0 - 23
-            var m = date.getMinutes(); // 0 - 59
-            var s = date.getSeconds(); // 0 - 59
-            var session = "AM";
-            
-            if(h == 0){
-                h = 12;
-            }
-            
-            if(h > 12){
-                h = h - 12;
-                session = "PM";
-            }
-            
-            h = (h < 10) ? "0" + h : h;
-            m = (m < 10) ? "0" + m : m;
-            s = (s < 10) ? "0" + s : s;
-            
-            var time = h + ":" + m + ":" + s + " " + session;
-            document.getElementById("MyClockDisplay").innerText = time;
-            document.getElementById("MyClockDisplay").textContent = time;
-            
-            setTimeout(showTime, 1000);
-            
-        }
-        showTime();
-
-        function formatTime(inputTime) {
-            var date = new Date(inputTime);
-            var h = date.getHours(); // 0 - 23
-            var m = date.getMinutes(); // 0 - 59
-            var s = date.getSeconds(); // 0 - 59
-            var session = "AM";
-            
-            if(h == 0){
-                h = 12;
-            }
-            
-            if(h > 12){
-                h = h - 12;
-                session = "PM";
-            }
-            
-            h = (h < 10) ? "0" + h : h;
-            m = (m < 10) ? "0" + m : m;
-            s = (s < 10) ? "0" + s : s;
-            
-            var time = h + ":" + m + ":" + s + " " + session;
-            return time;
-        }
-
-        function formatDate(inputTime) {
-            let date = new Date(inputTime);
-            let y = date.getFullYear();
-            let m = date.getMonth() + 1;
-            if(m < 10) {
-                m = '0' + m;
-            }
-            else m = m;
-            let d = date.getDate();
-            if(d < 10) {
-                d = '0' + d;
-            }
-            else m = m;
-            return d + '/' + m + '/' + y;
-        }
-
-        function formatDur(dur) {
-            let a = dur / 60000.0;
-            let h = parseInt(a / 60);
-            let m = Math.round((a/60 - h)*60);
-            return h + 'h' +' : '+ m + 'min'
-        }
-
-        function setTime(start, due){
-            // <div id="start" class="test-info-start">Start: 02:29:36 PM</div>
-            // <div id="due" class="test-info-due">Due: 02:59:36 PM</div>
-            // <div id="dur" class="test-info-time">Duration: 45 minutes</div>
-            const startDate = new Date(start);
-            console.log(startDate.getMonth());
-            const time1 = Date.parse(start);
-            // console.log(time1)
-            const time2 = Date.parse(due);
-            // console.log(time2)
-            const dur = time2 - time1;
-            // console.log(dur);
-            const a = new Date();
-            const now = Date.parse(a);
-            // console.log(now);
-            document.getElementById('start').innerHTML = 'Start: ' + formatTime(start);
-            document.getElementById('due').innerHTML = 'Due: ' + formatTime(due);
-            document.getElementById('dur').innerHTML = 'Duration: ' + formatDur(dur);
-            document.getElementById('exam-date').innerHTML = 'Ngày thi: ' + formatDate(start);
-        }
-        setTime('January 16, 2022 20:30:00', 'January 16, 2022 20:59:00');
-
-        function startExam(start) {
-            const a = new Date();
-            console.log(a);
-            const now = Date.parse(a);
-            console.log(now);
-            const time1 = Date.parse(start);
-            console.log(time1);
-            const delta = time1 - now;
-            console.log(delta)
-            if(delta >= 1000){
-                console.log('chưa đến giờ')
-                document.getElementById('waiting-area').style.display = 'flex';
-                //<div class="waiting-noti">Làm ơn chờ đợi, bài thi sẽ bắt đầu trong 10 phút nữa</div>
-                document.querySelector('#waiting-area .waiting-noti').innerHTML = 'Làm ơn chờ đợi, bài thi sẽ bắt đầu trong ' + formatDur(delta)+' nữa';
-            }
-            else {
-                console.log('den gio roi')
-                document.querySelector('#start-btn .submit-link').setAttribute('href', "takeExam.html");
-            }
-        }
-        function dueExam(due) {
-        }
-    </script>
-    <script>
-        // $(".answer-box").on("click", function() {
-        //     $(this).css("background", "blue");
-        // }); 
-
-        // Checkbox Question Tick Action
-        var questions = document.querySelectorAll('.exam-question-checkbox');
-        questions.forEach((question) => {
-            let answers = question.querySelectorAll('.answer-box');
-            answers.forEach((answer) => {
-                answer.addEventListener('click', () => {
-                    if(answer.classList.contains('answer-box--ticked')){
-                        answer.classList.remove('answer-box--ticked');
-                    }
-                    else {
-                        answer.classList.add('answer-box--ticked');
-                    };
-                });
-            });
-        });
-
-        
-    </script>
-
-    <script>
-        // Radio Question Tick Action
-        var questions = document.querySelectorAll('.exam-question-radio');
-        questions.forEach((question) => {
-            let answers = question.querySelectorAll('.answer-box');
-            answers.forEach((answer) => {
-                answer.addEventListener('click', () => {
-                    let arrayAnswers = Array.from(answers);
-                    console.log(arrayAnswers);
-                    tickedAnswers = arrayAnswers.filter((arrayAnswer) => {
-                        return arrayAnswer.classList.contains('answer-box--ticked');
-                    });
-                    console.log(tickedAnswers);
-                    if(answer.classList.contains('answer-box--ticked')) {
-                        answer.classList.remove('answer-box--ticked');
-                    }
-                    else {
-                        if(tickedAnswers.length < 1) {
-                            answer.classList.add('answer-box--ticked');
-                        }
-                        else {
-                            answer.classList.add('answer-box--ticked');
-                            tickedAnswers.forEach((tickedAnswer) => {
-                                tickedAnswer.classList.remove('answer-box--ticked');
-                            });
-                        }
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="./timeManager.js"></script>
 </body>
 </html>

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : checkscores
-    Created on : 18 Nov, 2020, 12:18:15 PM
-    Author     : Abhay Shah
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

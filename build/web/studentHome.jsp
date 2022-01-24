@@ -45,7 +45,6 @@
         <link rel="stylesheet" type="text/css" href="index.css">
         <link rel="stylesheet" type="text/css" href="lecturerHome.css">
     </head>
-<<<<<<< HEAD
     <body style="padding-bottom: 0;">
         <form id="lecturerHome">
             <!--Navigation Bar-->
@@ -61,14 +60,6 @@
             <sql:query var="listcourse" dataSource="${db}" >
                 SELECT * FROM courses;
             </sql:query>
-
-            <div class="courses-container">
-                <table border="1" class="center" style="color:#000;">
-                    <tr>
-                        <th>Course ID</th>
-                        <th>Course name</th>
-=======
-    <body>
         <!--Navigation Bar-->
         <%@include file="studentNavbar.jsp"%>
         <div class="container" style="padding: 50px; color: #696969;">
@@ -83,7 +74,6 @@
                 %>
                 <div class="col-md-3 my-3">
                     <div class="card bg-danger text-white w-100">
->>>>>>> 307be542e3a538fb6c9ce0c65b6ed7634150f2a7
 
                         <div class="card-body">
                             <h5 class="card-title"><b><%=courseinfo.getCourse_id()%></b></h5>
@@ -93,7 +83,7 @@
                                 <%=convertDateTime.datetimeFormater(examinfo.getExam_date_start(), examinfo.getExam_time_start())%></p>
                             <p>Duration: <%=examinfo.getExam_duration()%></p>
                             <div class="mt-3 d-flex justify-content-between">
-                                <a class="btn btn-dark" href="takeExam.jsp">Take Exam</a> 
+                                <a class="btn btn-dark" href="takeExam2.jsp">Take Exam</a> 
                             </div>
                         </div>
                     </div>

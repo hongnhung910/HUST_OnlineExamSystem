@@ -29,7 +29,6 @@
                 -ms-user-select: none;
                 user-select: none;
             }
-
             @media (min-width: 768px) {
                 .bd-placeholder-img-lg {
                     font-size: 3.5rem;
@@ -38,7 +37,6 @@
             nav {
                 font-family: sans-serif;
             }
-
             .navbar-brand {
                 font-size: 20px;
                 font-family: Georgia, 'Times New Roman', Times, serif;
@@ -67,9 +65,15 @@
         <sql:setDataSource 
             var="db" 
             driver="com.mysql.jdbc.Driver"
-            url="jdbc:mysql://localhost:3306/login_accounts?characterEncoding=utf8"
+            url="jdbc:mysql://localhost:3306/hustdb?autoReconnect=true&useSSL=false"
             user="root"
-            password="Meoluoi910@"></sql:setDataSource>
+            password="31101999"></sql:setDataSource>
+        
+<!--        String driverName="com.mysql.jdbc.Driver";  
+            String url = "jdbc:mysql://localhost:3306/hustdb?autoReconnect=true&useSSL=false";
+            String dbuser = "root";
+            String dbpass = "31101999";
+            String sql = "select * from students where std_email=? and std_password=?";-->
 
         <sql:query var="mcq" dataSource="${db}">
             select * from exam_question_bank;
@@ -102,7 +106,6 @@
     </body>
     <script type="text/javascript">
         var count = 1000;
-
         function countDown() {
             var timer = document.getElementById("timer");
             if (count > 0) {

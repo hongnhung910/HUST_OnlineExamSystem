@@ -53,20 +53,6 @@
 
     </head>
     <body>
-
-<<<<<<< HEAD
-        
-        <div id="content-container"  style="color: #696969;">
-
-            <div class="exam-header">
-                <img class="logo exam-logo" src="logoEn.png">
-                <div class="exam-student">
-                    <div class="exam-student-name">Vu Trong Nghia</div>
-                    <img src="AVT.jpg" alt="" class="exam-student-avt">
-                    <button class="btn btn-primary exam-student-logout">
-                        <a class="submit-link" href="index.jsp">Logout</a>
-                    </button>
-=======
         <header>
             <!--Navigation Bar-->
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-light">
@@ -91,7 +77,6 @@
                             <a class="nav-link" href="index.jsp" style="color: #fff; font-size: 18px">Logout</a>
                         </li>
                     </ul>
->>>>>>> 307be542e3a538fb6c9ce0c65b6ed7634150f2a7
                 </div>
             </nav>
         </header>
@@ -103,21 +88,7 @@
             <div class="exam-question" id="personal-infor">
                 <h2 class="personal-infor-title infor-title">Thông tin cá nhân</h2>
                 <div class="personal-infor-content">
-                    <div class="infor-content-col1">
-<<<<<<< HEAD
-                        <img src="AVT.jpg" alt="Profile" class="content-col1-avt">
-                        <div class="content-col1-mssv">MSSV: 20172720</div>
-                    </div>
-                    <div class="infor-content-col2">
-                        <div class="content-col2-row">Họ và tên : Vũ Trọng Nghĩa</div>
-                        <div class="content-col2-row">Năm vào trường : 2017</div>
-                        <div class="content-col2-row">Bậc đào tạo : Đại học đại trà</div>
-                        <div class="content-col2-row">Chương trình : Kỹ thuật điện tử - viễn thông-2017</div>
-                        <div class="content-col2-row">Khoa/Viện quản lý : Viện Điện tử - Viễn thông</div>
-                        <div class="content-col2-row">Tình trạng học tập : Học</div>
-=======
-                        <img src="iconsfemale.jpg" alt="Profile" class="content-col1-avt" style="width: 200px;height: 200px; margin-left: 50px; border-radius: 50%;">
->>>>>>> 307be542e3a538fb6c9ce0c65b6ed7634150f2a7
+                    <div class="infor-content-col2"><img src="iconsfemale.jpg" alt="Profile" class="content-col1-avt" style="width: 200px;height: 200px; margin-left: 50px; border-radius: 50%;">
                     </div>
                     <div class="infor-content-col3">
                         <div class="content-col3-row">Họ và tên : <%=user.getStd_name()%></div>

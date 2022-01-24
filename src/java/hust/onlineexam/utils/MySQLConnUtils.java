@@ -18,10 +18,11 @@ public class MySQLConnUtils {
         String driverName = "com.mysql.jdbc.Driver";
         String databaseName = "login_accounts";
         String connectionURL = "jdbc:mysql://localhost:3306/"+databaseName+"?characterEncoding=utf8";
+        String url = "jdbc:mysql://localhost:3306/hustdb?autoReconnect=true&useSSL=false";
         String db_user = "root";
-        String db_pass = "Meoluoi910@";
+        String db_pass = "31101999";
         Class.forName(driverName);
-        Connection conn = DriverManager.getConnection(connectionURL, db_user, db_pass);
+        Connection conn = DriverManager.getConnection(url, db_user, db_pass);
         return conn;
     }
 

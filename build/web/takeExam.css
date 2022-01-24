@@ -1,12 +1,3 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
-*/
-/* 
-    Created on : Jan 17, 2022, 10:35:57 PM
-    Author     : hongn
-*/
-
 html {
     /* Da phan mac dinh cua cac trinh duyet: 100% = 16px */
     /* font-size: 100%; */
@@ -84,6 +75,7 @@ body {
 .content-container {
     background-color: white;
     width: 82%;
+    color: black;
 }
 .exam-header {
     display: flex;
@@ -191,4 +183,18 @@ body {
 }
 .answer-content {
     margin-left: 10px;
+}
+#farewell-area {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+.farewell-noti {
+
+}
+.farewell-img {
+    width: 400px;
+}
+#grade-noti {
+    font-size: 3rem;
 }

@@ -33,7 +33,7 @@
     </head>
     <c:set var="selectedexam" value="${param.selectedexam}" scope="session" />
 
-    <body>
+    <body style="padding: 0;">
         <div class="body-section"  style="color: black;">
             <nav class="nav-left">
             <button class="btn exit-btn btn-danger">
@@ -71,6 +71,7 @@
             <div class="exam-info">
                 <div class="exam-course-name">Kiến trúc máy tính</div>
                 <div class="exam-test-name">Kiểm tra giữa kỳ 20211</div>
+                <div  id="exam-date" class="exam-test-date" style="font-size: 1.8rem;">Ngày kiểm tra: 25/01/2022</div>
                 <div class="exam-test-info">
                     <div id="start" class="test-info-start">Start: 02:29:36 PM</div>
                     <div id="due" class="test-info-due">Due: 02:59:36 PM</div>
@@ -132,6 +133,8 @@
         <script src="./checkboxQuestion.js"></script>
         <script src="./radioQuestion.js"></script>
         <script>
+//          Set time for test
+//            setTime('January 26, 2022 09:20:00', 'January 26, 2022 11:45:00');
 // Chấm điểm
         let key = [{"examID":"et4040_ck", "quesID":"et4040_ck_01", "ques_title":"Trong ki\u1ebfn tr\u00fac x\u1eed l\u00fd 4 bits. Thanh ghi MBR l\u00e0m nhi\u1ec7m v\u1ee5 g\u00ec?", "ans_choice1":"\u0110\u1ecdc d\u1eef li\u1ec7u t\u1eeb \u00f4 nh\u1edb trong b\u1ed9 nh\u1edb", "ans_choice2":"Ghi d\u1eef li\u1ec7u ra b\u1ed9 nh\u1edb", "ans_choice3":"\u0110\u1ecdc \u0111\u1ecba ch\u1ec9 \u00f4 nh\u1edb trong b\u1ed9 nh\u1edb", "ans_choice4":"T\u00edn hi\u1ec7u \u0111\u1ecdc d\u1eef li\u1ec7u t\u1eeb m\u1ed9t \u00f4 nh\u1edb trong b\u1ed9 nh\u1edb.", "ans_correct":"\u0110\u1ecdc d\u1eef li\u1ec7u t\u1eeb \u00f4 nh\u1edb trong b\u1ed9 nh\u1edb"},
  {"examID":"et4040_ck", "quesID":"et4040_ck_02", "ques_title":"C\u00e1c lo\u1ea1i BUS n\u00e0o s\u1eed d\u1ee5ng trong ki\u1ebfn tr\u00fac v\u00e0o/ra c\u1ee7a m\u00e1y t\u00ednh s\u1ed1 l\u00e0:", "ans_choice1":"C\u1ea3 3 lo\u1ea1i BUS: D\u1eef li\u1ec7u, \u0111\u1ecba ch\u1ec9, \u0111i\u1ec1u khi\u1ec3n", "ans_choice2":"BUS \u0111\u1ecba ch\u1ec9", "ans_choice3":"BUS \u0111i\u1ec1u khi\u1ec3n", "ans_choice4":"BUS d\u1eef li\u1ec7u", "ans_correct":"C\u1ea3 3 lo\u1ea1i BUS: D\u1eef li\u1ec7u, \u0111\u1ecba ch\u1ec9, \u0111i\u1ec1u khi\u1ec3n"},
@@ -173,6 +176,9 @@
             document.querySelector('#farewell-area #grade-noti').innerHTML = 'Điểm bài thi: ' + grade;
             return grade;
         }
+        </script>
+        <script>
+            setTime('January 26, 2022 09:20:00', 'January 26, 2022 11:45:00');
         </script>
     </body>
 </html>

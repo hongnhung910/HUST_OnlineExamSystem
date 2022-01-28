@@ -151,9 +151,7 @@ body {
     margin-bottom: 20px;
     padding: 20px;
 }
-.exam-question-question {
 
-}
 .question-tag {
     color: #A9A9A9;
     font-size: 1.6rem;
@@ -162,9 +160,6 @@ body {
     font-size: 2rem;
 }
 
-.exam-question-answers {
-    
-}
 .exam-question-answer {
     display: flex;
     font-size: 1.6rem;

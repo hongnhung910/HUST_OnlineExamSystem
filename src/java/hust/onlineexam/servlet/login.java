@@ -95,47 +95,6 @@ public class login extends HttpServlet {
             }
             out.println("</body>"); out.println("</html>");
 
-            /**
-             * Connection conn = null; PreparedStatement ps = null; ResultSet rs
-             * = null;
-             *
-             * String driverName = "com.mysql.jdbc.Driver"; String url =
-             * "jdbc:mysql://localhost:3306/login_accounts?characterEncoding=utf8";
-             * String dbuser = "root"; String dbpass = "Meoluoi910@"; String sql
-             * = "select * from students where std_email=? and std_password=?";
-             *
-             * String name = ""; String emailid = "";
-             *
-             * try { if (email != null) {
-             *
-             * Class.forName(driverName); conn =
-             * DriverManager.getConnection(url, dbuser, dbpass); ps =
-             * conn.prepareStatement(sql); ps.setString(1, email);
-             * ps.setString(2, pass);
-             *
-             * rs = ps.executeQuery();
-             *
-             * if (rs.next()) {
-             *
-             * name = rs.getString("std_name"); emailid =
-             * rs.getString("std_email");
-             *
-             * HttpSession hs = request.getSession(false);
-             * hs.setAttribute("std_name", name); hs.setAttribute("std_email",
-             * emailid); RequestDispatcher rd =
-             * request.getRequestDispatcher("studentHome.jsp");
-             * rd.forward(request, response); } else {
-             *
-             * HttpSession hs = request.getSession(false); RequestDispatcher d =
-             * request.getRequestDispatcher("login.jsp"); hs.setAttribute("err",
-             * "Password and Email are invalid."); d.forward(request, response);
-             * rs.close(); ps.close(); } }
-             *
-             * out.println("</body>"); out.println("</html>"); } catch
-             * (Exception e) {
-             *
-             * }*
-             */
         } catch(Exception e) {
              
              }

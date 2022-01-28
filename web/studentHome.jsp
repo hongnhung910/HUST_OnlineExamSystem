@@ -46,6 +46,7 @@
         <link rel="stylesheet" type="text/css" href="lecturerHome.css">
     </head>
     <body>
+
         <!--Navigation Bar-->
         <%@include file="studentNavbar.jsp"%>
         <div class="container" style="padding: 50px; color: #696969;">
@@ -69,7 +70,7 @@
                                 <%=convertDateTime.datetimeFormater(examinfo.getExam_date_start(), examinfo.getExam_time_start())%></p>
                             <p>Duration: <%=examinfo.getExam_duration()%></p>
                             <div class="mt-3 d-flex justify-content-between">
-                                <a class="btn btn-dark" href="takeExam.jsp">Take Exam</a> 
+                                <a class="btn btn-dark" href="SelectExam?id=<%=examID%>">Take exam</a> 
                             </div>
                         </div>
                     </div>
@@ -84,5 +85,9 @@
             </div>
         </div>
         <%@include file="footer.jsp"%>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.js"></script>
+
+
     </body>
 </html>

@@ -1,9 +1,12 @@
 <%-- 
-    Document   : takeExam
-    Created on : Jan 19, 2022, 5:23:53 AM
+    Document   : resultExam
+    Created on : Jan 30, 2022, 5:06:20 AM
     Author     : hongn
 --%>
 
+<%@page import="hust.onlineexam.dbobjects.TakeExam"%>
+<%@page import="hust.onlineexam.utils.TakeExamDAO"%>
+<%@page import="java.util.List"%>
 <%@page import="hust.onlineexam.utils.courseDAO"%>
 <%@page import="hust.onlineexam.dbobjects.Course"%>
 <%@page import="hust.onlineexam.utils.convertDateTime"%>
@@ -21,18 +24,21 @@
     if (user != null) {
         request.setAttribute("user", user);
     }
-
+    int correct_answers = (Integer) request.getSession().getAttribute("correct_answers");
     ArrayList<Question> question_list = (ArrayList<Question>) session.getAttribute("question-list");
     String exam_id = (String) session.getAttribute("exam_id");
+    String take_exam_id = exam_id + "_" + String.valueOf(user.getStd_id());
 
     if (exam_id != null) {
-        String take_exam_id = exam_id+"_"+String.valueOf(user.getStd_id());
         request.setAttribute("exam_id", exam_id);
         request.setAttribute("take_exam_id", take_exam_id);
     }
     Exam exam = OnlineExamDAO.getExamInfo(MySQLConnUtils.getSQLServerConnection(), exam_id);
-
+    TakeExam takeExam = TakeExamDAO.getTakeExam(MySQLConnUtils.getSQLServerConnection(), take_exam_id);
+    int total_ques = exam.getExam_total_question();
     Course course = courseDAO.getCourseInfo(MySQLConnUtils.getSQLServerConnection(), exam.getCourse_id());
+    System.out.print("Take Exam ID: " + take_exam_id);
+    System.out.print("Num of correct answers: " + correct_answers);
 %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -40,7 +46,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>HUST Online Exams | <%=(exam.getExam_id().toUpperCase())%></title>
+        <title>HUST Online Exams | Result <%=(exam.getExam_id().toUpperCase())%></title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -54,30 +60,13 @@
         <link rel="stylesheet" href="./takeExam.css">
     </head>
     <style>
-        .submit-button {
-            background-color: #f4511e;
-            width: 20%;
-            border-radius: 5px;
-            border: none;
+        .answer-wrong--ticked {
+            background-color: #EC0000;
             color: white;
-            padding: 16px 32px;
-            text-align: center;
-            font-size: 16px;
-            margin: 4px 2px;
-            opacity: 0.6;
-            transition: 0.3s;
-            display: inline-block;
-            text-decoration: none;
-            cursor: pointer;
-            align-items: center;
-        }
-
-        .submit-button:hover {
-            opacity: 1
         }
     </style>
 
-    <body style="padding: 0;">
+    <body>
         <div class="body-section"  style="color: black;">
             <nav class="nav-left">
                 <button class="btn exit-btn btn-danger">
@@ -85,13 +74,14 @@
                 </button>
                 <div class="static-items">
 
-                    <p id="MyClockDisplay" class="clock">_h _m _s</p>
-                    <div class="btn submit-btn btn-danger" style="font-size: 2em; font-family: Orbitron;" >
-                        <b>Remaining Time</b> 
+                    <div class="btn submit-btn btn-danger" style="font-size: 16px;" >
+                        <p style="font-size: 24px;"><b>Exam Result</b></p>
+                        <p>Correct: <%= correct_answers %>/ <%= total_ques %></p>
+                        <p>Incorrect: <%= total_ques-correct_answers %>/ <%= total_ques %></p>
+                        <p><b>Score: <%= takeExam.getGrade() %></b></p>
                     </div>
 
                 </div>
-
             </nav>
             <div class="content-container">
                 <div class="exam-header">
@@ -107,7 +97,7 @@
 
 
                 <br/><br/><br/>    
-                <form action="takeExam" method="POST">
+                <form>
 
                     <div class="exam-info">
                         <div class="exam-course-name">
@@ -126,87 +116,108 @@
                                 Thời gian kết thúc: <%=convertDateTime.calculate_Endtime(exam.getExam_time_start(), exam.getExam_duration())%></div>
                         </div>
                     </div>
-              
+
                     <%
                         if (question_list != null) {
                             int quescount = 1;
+                            int correct = 0;
+                            int std_choice;
                             for (Question q : question_list) {
+                                std_choice = TakeExamDAO.getStudentChoice(MySQLConnUtils.getSQLServerConnection(), take_exam_id, q.getQues_id());
+                                correct = q.getAns_correct();
+
                     %>
 
                     <div class="form-group exam-question exam-question-radio" style="margin:20px;">
                         <label class="col-lg-2 control-label question-tag">Question <%=quescount%></label>
                         <% quescount = quescount + 1;%>
                         <div class="col-lg-10 text-left">
-                            <input type="hidden" value="<%=q.getQues_id()%>" name="question<%=quescount%>_id">
+                            <input type="hidden" value="<%=q.getQues_id()%>" name="question<%=quescount%>_id" readonly>
                             <h5 class="question-content"><%=q.getQues_title()%></h5>
 
                             <div class="exam-question-answer">
-                                <div>
-                                    <input  type="radio" name="question<%=quescount%>_option" required="required" value="1"></div>
+                                <%
+                                    if (std_choice == 1 && correct != 1) {
+                                %> 
+                                <div class="answer-box answer-wrong--ticked">
+                                <%
+                                    } else if (correct == 1) {
+                                %>
+                                        <div class="answer-box answer-correct--ticked">                                   
+                                    <% } else {%>
+                                            <div class="answer-box">  
+                                <% }%>
+                                <input type="hidden" name="question<%=quescount%>_option" value="<%=q.getAns_choice1()%>" readonly></div>
                                 <div class="answer-content"><%=q.getAns_choice1()%> </div>
                             </div>
+
                             <div class="exam-question-answer">
-                                <div>
-                                    <input type="radio" name="question<%=quescount%>_option" required="required" value="2"></div>
+                                <%
+                                    if (std_choice == 2 && correct != 2) {
+                                %> 
+                                <div class="answer-box answer-wrong--ticked">
+                                <%
+                                    } else if (correct == 2) {
+                                %>
+                                <div class="answer-box answer-correct--ticked">   
+                                <% } else {%>
+                                <div class="answer-box">  
+                                <% }%>
+                                <input type="hidden" name="question<%=quescount%>_option" value="<%=q.getAns_choice2()%>" readonly></div>
                                 <div class="answer-content"><%=q.getAns_choice2()%></div>
                             </div>
                             <div class="exam-question-answer">
-                                <div>
-                                    <input type="radio" name="question<%=quescount%>_option" required="required" value="3"></div>
+                                <%
+                                    if (std_choice == 3 && correct != 3) {
+                                %> 
+                                <div class="answer-box answer-wrong--ticked">
+                                <%
+                                    } else if (correct == 3) {
+                                %>
+                                <div class="answer-box answer-correct--ticked">   
+                                <% } else {%>
+                                <div class="answer-box">           
+                                <% }%>
+                                <input type="hidden" name="question<%=quescount%>_option" value="<%=q.getAns_choice3()%>" readonly></div>
                                 <div class="answer-content"><%=q.getAns_choice3()%></div>
                             </div>
                             <div class="exam-question-answer">
-                                <div>
-                                    <input type="radio" name="question<%=quescount%>_option" required="required" value="4"></div>
-                                <div class="answer-content"><%=q.getAns_choice4()%></div>
+                                <%
+                                    if (std_choice == 4 && correct != 4) {
+                                %> 
+                                        <div class="answer-box answer-wrong--ticked">
+                                <%
+                                    } else if (correct == 4) {
+                                %>
+                                            <div class="answer-box answer-correct--ticked">
+                                    
+                                        <% } else {%>
+                                                <div class="answer-box">
+                                    
+                                <% }%>
+                                <input type="hidden" name="question<%=quescount%>_option" value="<%=q.getAns_choice4()%>" readonly></div>
+                                <div class="answer-content"><%=q.getAns_choice4()%></div> 
+                                
                             </div>
-
+                                <% if (correct != std_choice){
+                                    %>
+                                    <p style="color: #EC0000; font-size: 16px; margin-top: 20px; margin-left: 40px;"><b>INCORRECT</b></p>
+                                    <%
+                                } else { %>
+                                    <p style="color: #52cc00; font-size: 16px; margin-top: 20px; margin-left: 40px;"><b>CORRECT</b></p>
+                                <% } %>
                         </div>
+                                
                     </div>
-
-                    <%}
+                    <%   
+                            }
                         }
+
                     %>
-
-                    <center> <button class="submit-button" onclick="show_correctAns()">Submit</button> </center>
-
                     <br><br>
                 </form>
             </div>
         </div>
-        <script>
-            var due = new Date("<%=convertDateTime.getCurrentDate()%> <%=convertDateTime.Endtime(convertDateTime.getCurrentTime(), exam.getExam_duration())%>");
-                var x = setInterval(function () {
 
-                    // Get today's date and time
-                    var now = new Date();
-                    
-                    // Find the distance between now and the count down date
-                    var distance = due - now;
-
-                    // Time calculations for days, hours, minutes and seconds
-                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    // Output the result in an element with id="demo"
-                    document.getElementById("MyClockDisplay").innerHTML = hours + "h "
-                            + minutes + "m " + seconds + "s ";
-
-                    // If the count down is over, write some text 
-                    if (distance < 0) {
-                        clearInterval(x);
-                        document.getElementById("MyClockDisplay").innerHTML = "<%=convertDateTime.getCurrentTime()%>";
-                        console.log('Hết giờ làm bài thi!');
-                    }
-                }, 1000);
-
-        </script>
     </body>
-    <script src="./checkboxQuestion.js"></script>
-    <script src="./radioQuestion.js"></script>
-
-
-
 </html>

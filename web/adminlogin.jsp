@@ -71,8 +71,8 @@
         <form class="form-signin" action="adminlogin" method="POST">
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Administrator Sign In</h1>
             <hr/>
-            <input type="email" class="form-control" placeholder="Email" required="" autofocus="" name="email" />
-            <input type="password" class="form-control" placeholder="Password" required="" name="pass" /><br>
+            <input type="email" class="form-control" placeholder="Email" required="" autofocus="" name="admin_email" />
+            <input type="password" class="form-control" placeholder="Password" required="" name="admin_pass" /><br>
             
             <input class="btn btn-success btn-block" type="submit" value="Login" style="color:white;"><br/>
             <h5 style="color:red; text-align: center;">${err}</h5>

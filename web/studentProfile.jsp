@@ -24,7 +24,7 @@
     }
 
     Connection conn = MySQLConnUtils.getSQLServerConnection();
-    List<TakeExam> takeExams = TakeExamDAO.getAllTakeExam(conn, user.getStd_id());
+    List<TakeExam> takeExams = TakeExamDAO.getDoneExam(conn, user.getStd_id());
 
 %>
 
@@ -45,15 +45,12 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="./index.css">
-        <link rel="stylesheet" type="text/css" href="./lecturerHome.css">
         <link rel="stylesheet" href="./studentInfor.css">
-        <link rel="stylesheet" href="./courseInside.css">
         <link rel="stylesheet" href="./takeExam.css">
-        <link rel="stylesheet" href="./entranceExam.css">
+        
 
     </head>
-    <body>
-
+   <body style="padding-bottom: 0;">
         <header>
             <!--Navigation Bar-->
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-light">
@@ -74,7 +71,7 @@
                             <a class="nav-link" href="studentHome.jsp" style="color: #696969; font-size: 18px; margin-right: 30px;"><b>Courses</b></a>
                         </li>
 
-                        <li class="nav-item nav-logout">
+                        <li class="nav-item" style="background-color:#2C9CDB; border-radius: 5px; padding-left: 10px; padding-right: 10px;">
                             <a class="nav-link" href="index.jsp" style="color: #fff; font-size: 18px">Logout</a>
                         </li>
                     </ul>
@@ -83,14 +80,16 @@
         </header>
 
         <div id="content-container"  style="color: #696969; margin: 50px 50px 50px 50px;">
-
+            
             <h1 id="student-title" class="exam-course-name" style="padding: 50px;">Thông tin sinh viên</h1>
 
             <div class="exam-question" id="personal-infor">
+                <button type="button" class="btn btn-secondary float-right" >Đổi mật khẩu</button>
                 <h2 class="personal-infor-title infor-title">Thông tin cá nhân</h2>
                 <div class="personal-infor-content">
                     <div class="infor-content-col1">
                         <img src="iconsfemale.jpg" alt="Profile" class="content-col1-avt" style="width: 200px;height: 200px; margin-left: 50px; border-radius: 50%;">
+                    
                     </div>
                     <div class="infor-content-col3">
                         <div class="content-col3-row">Họ và tên : <%=user.getStd_name()%></div>
@@ -100,11 +99,13 @@
                     </div>
                     <div class="infor-content-col3" style="margin-right: 50px;">
                         <div class="content-col3-row">Giới tính : <%=user.getStd_gender()%></div>
-                        <div class="content-col3-row">Ngày sinh : <%=user.getStd_DOB()%></div>
+                        <div class="content-col3-row">Ngày sinh : <%=convertDateTime.dateFormater(user.getStd_DOB())%></div>
                         <div class="content-col3-row">Email : <%=user.getStd_email()%></div>
                         <div class="content-col3-row">Số điện thoại : <%=user.getStd_phone()%></div>
                     </div>
-                </div>
+                    
+
+                </div>   
             </div>
 
             <div class="exam-question" id="courses-infor">

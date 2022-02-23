@@ -4,24 +4,8 @@
  */
 package hust.onlineexam.servlet;
 
-import hust.onlineexam.dbobjects.Exam;
-import hust.onlineexam.dbobjects.Question;
-import hust.onlineexam.utils.DBUtils;
-import hust.onlineexam.utils.MySQLConnUtils;
-import hust.onlineexam.utils.MyUtils;
-import hust.onlineexam.utils.QuestionsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,8 +17,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author hongn
  */
-@WebServlet(name = "selectExam", urlPatterns = {"/SelectExam"})
-public class selectExam extends HttpServlet {
+@WebServlet(name = "createExam", urlPatterns = {"/createExam"})
+public class createExam extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,27 +31,25 @@ public class selectExam extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-            String exam_id = request.getParameter("id");
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet createExam</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            String courseID = request.getParameter("id");
 
             HttpSession session = request.getSession();
-            session.setAttribute("exam_id", exam_id);
-            out.print(session.getAttribute("exam_id"));
-            QuestionsDAO quesDAO = new QuestionsDAO();
-
-            ArrayList<Question> list_questions = quesDAO.list_questions(MySQLConnUtils.getSQLServerConnection(), exam_id);
-            session.setAttribute("question-list", list_questions);
-   
+            session.setAttribute("courseID", courseID);
+            out.print(session.getAttribute("courseID"));
             
-            
-            response.sendRedirect("takeExam.jsp");
-
-        } catch (ClassNotFoundException | SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            out.println("<h1>Servlet createExam at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            response.sendRedirect("addExam.jsp");
         }
     }
 

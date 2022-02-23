@@ -2,12 +2,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="footer.css">
-<footer style="background-image: url('footer.png');">
+<footer style="flex-shrink: 0; background-image: url('footer.png'); margin-top: 40px;  width: 100%; font-size: 14px;">
     <div class="container-fluid padding">
         <div class="row text-center">
             <div class="col-md-4">
                 <hr class="light">
-                <h5> <i class="fa fa-info-circle" aria-hidden="true"></i> More Info</h5>
+                <p style="font-size: 18px;"> <i class="fa fa-info-circle" aria-hidden="true"></i><b> More Info</b></p>
                 <hr class="light">
                 <p><b>Hanoi University of Science and Technology © 2021</b></p>
                 <p> <i class="fa fa-phone-square" aria-hidden="true"></i> +84 243 869 2222</p>
@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-4">
                 <hr class="light" />
-                <h5> <i class="fa fa-calendar" aria-hidden="true"></i> Working Hours</h5>
+                <p style="font-size: 18px;"> <i class="fa fa-calendar" aria-hidden="true"></i><b> Working Hours</b></p>
                 <hr class="light" />
                 <p>Monday: 9PM-5PM</p>
                 <p>Saturday:10AM-4PM</p>
@@ -24,7 +24,7 @@
             </div>
             <div class="col-md-4">
                 <hr class="light">
-                <h5> <i class="fa fa-link" aria-hidden="true"></i> Quick Links</h5>
+                <p style="font-size: 18px;"> <i class="fa fa-link" aria-hidden="true"></i><b> Quick Links</b></p>
                 <hr class="light" />
                 <p><a href="https://en.hust.edu.vn/home">About HUST</a></p>
                 <p><a href="https://ctt.hust.edu.vn/">Other services</a></p>

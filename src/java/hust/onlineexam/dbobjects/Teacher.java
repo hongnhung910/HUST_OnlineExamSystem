@@ -9,17 +9,26 @@ package hust.onlineexam.dbobjects;
  * @author hongn
  */
 public class Teacher {
-    private int tea_id;
+    private String tea_id;
     private String tea_name;
     private String tea_email;
     private String tea_password;
     private String tea_phone; 
+    private String courses; 
 
-    public int getTea_id() {
+    public String getCourses() {
+        return courses;
+    }
+
+    public void setCourses(String courses) {
+        this.courses = courses;
+    }
+    
+    public String getTea_id() {
         return tea_id;
     }
 
-    public void setTea_id(int tea_id) {
+    public void setTea_id(String tea_id) {
         this.tea_id = tea_id;
     }
 

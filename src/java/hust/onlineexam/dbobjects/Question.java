@@ -16,7 +16,7 @@ public class Question {
     private String ans_choice2;
     private String ans_choice3;
     private String ans_choice4;
-    private String ans_correct;
+    private int ans_correct;
 
     public String getExam_id() {
         return exam_id;
@@ -74,11 +74,11 @@ public class Question {
         this.ans_choice4 = ans_choice4;
     }
 
-    public String getAns_correct() {
+    public int getAns_correct() {
         return ans_correct;
     }
 
-    public void setAns_correct(String ans_correct) {
+    public void setAns_correct(int ans_correct) {
         this.ans_correct = ans_correct;
     }
     

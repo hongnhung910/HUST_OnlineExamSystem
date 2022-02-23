@@ -8,8 +8,11 @@
         <title>HUST Online Exams</title>
     </head>
     <body>
-        <sql:setDataSource driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/ejproj" 
-        user="root" password="root"></sql:setDataSource>
+        <sql:setDataSource 
+            driver="com.mysql.jdbc.Driver" 
+            url="jdbc:mysql://localhost:3306/login_accounts?characterEncoding=utf8"
+            user="root" 
+            password="Meoluoi910@"></sql:setDataSource>
         
         <sql:update var="tbl">
                     INSERT INTO ${examsubject}(qno,question,a1,a2,a3,a4,ans) VALUES (?,?,?,?,?,?,?)

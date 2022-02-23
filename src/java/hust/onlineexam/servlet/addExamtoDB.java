@@ -4,21 +4,13 @@
  */
 package hust.onlineexam.servlet;
 
-import hust.onlineexam.dbobjects.Exam;
-import hust.onlineexam.dbobjects.Question;
-import hust.onlineexam.utils.DBUtils;
+import hust.onlineexam.dbobjects.Teacher;
 import hust.onlineexam.utils.MySQLConnUtils;
-import hust.onlineexam.utils.MyUtils;
-import hust.onlineexam.utils.QuestionsDAO;
+import hust.onlineexam.utils.OnlineExamDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -33,8 +25,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author hongn
  */
-@WebServlet(name = "selectExam", urlPatterns = {"/SelectExam"})
-public class selectExam extends HttpServlet {
+@WebServlet(name = "addExamtoDB", urlPatterns = {"/addExamtoDB"})
+public class addExamtoDB extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,27 +39,45 @@ public class selectExam extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession(false);
+            Teacher user= (Teacher) session.getAttribute("user");
+            String teaID = user.getTea_id();
+            String exam_name = request.getParameter("examName");
+            String exam_time_start = request.getParameter("examTimeStart");
+            String exam_date_start = request.getParameter("examDateStart");;
+            String exam_duration = request.getParameter("hourDuration") + ":" + request.getParameter("minDuration") + ":00";
+            int total_ques = Integer.parseInt(request.getParameter("num_ques"));
+            float mark_correct = Float.parseFloat(request.getParameter("mark_correct"));
+            float mark_incorrect = Float.parseFloat(request.getParameter("mark_incorrect"));;
+            String examID = request.getParameter("examID");;       
+            String courseID = (String) session.getAttribute("courseID");;
+            boolean addExam = false;
+            try {
+                Connection conn = MySQLConnUtils.getSQLServerConnection();
+                addExam = OnlineExamDAO.insertExam(conn, examID, exam_name, exam_time_start, exam_duration, total_ques, mark_correct, mark_incorrect, courseID, teaID, exam_date_start);
             
-            String exam_id = request.getParameter("id");
-
-            HttpSession session = request.getSession();
-            session.setAttribute("exam_id", exam_id);
-            out.print(session.getAttribute("exam_id"));
-            QuestionsDAO quesDAO = new QuestionsDAO();
-
-            ArrayList<Question> list_questions = quesDAO.list_questions(MySQLConnUtils.getSQLServerConnection(), exam_id);
-            session.setAttribute("question-list", list_questions);
-   
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(addExamtoDB.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(addExamtoDB.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
-            
-            response.sendRedirect("takeExam.jsp");
-
-        } catch (ClassNotFoundException | SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet addExamtoDB</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Information " + exam_name + "</h1>");
+            out.println("<h1>Information " + exam_time_start + "</h1>");
+            out.println("<h1>Information " + exam_date_start + "</h1>");
+            out.println("<h1>Information " + exam_duration + "</h1>");
+            out.println("<h1>Add to database " + addExam + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

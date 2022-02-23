@@ -49,8 +49,8 @@
         <link rel="stylesheet" type="text/css" href="index.css">
 
     </head>
-    <body>
-        <form id="form1">
+    <body style="padding-bottom: 0;">
+        <form id="form1" style="padding-bottom: 0;">
             <header>
                 <!--Navigation Bar-->
                 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-light">
@@ -150,5 +150,6 @@
                 <!--Footer-->
                 <jsp:include page="footer.jsp"/>
         </form>
+        
     </body>
 </html>

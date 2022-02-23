@@ -24,11 +24,18 @@
 
     ArrayList<Question> question_list = (ArrayList<Question>) session.getAttribute("question-list");
     String exam_id = (String) session.getAttribute("exam_id");
+
+    if (exam_id != null) {
+        String take_exam_id = exam_id+"_"+String.valueOf(user.getStd_id());
+        request.setAttribute("exam_id", exam_id);
+        request.setAttribute("take_exam_id", take_exam_id);
+    }
     Exam exam = OnlineExamDAO.getExamInfo(MySQLConnUtils.getSQLServerConnection(), exam_id);
+
     Course course = courseDAO.getCourseInfo(MySQLConnUtils.getSQLServerConnection(), exam.getCourse_id());
 %>
 <!DOCTYPE html>
-<html>
+<html lang="vi">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -44,13 +51,32 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="./index.css">
-        <link rel="stylesheet" type="text/css" href="./lecturerHome.css">
-        <link rel="stylesheet" href="./courseInside.css">
-        <link rel="stylesheet" href="./entranceExam.css">
         <link rel="stylesheet" href="./takeExam.css">
     </head>
+    <style>
+        .submit-button {
+            background-color: #f4511e;
+            width: 20%;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            font-size: 16px;
+            margin: 4px 2px;
+            opacity: 0.6;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+            align-items: center;
+        }
 
-    <c:set var="selectedexam" value="${param.selectedexam}" scope="session" />
+        .submit-button:hover {
+            opacity: 1
+        }
+    </style>
+
     <body style="padding: 0;">
         <div class="body-section"  style="color: black;">
             <nav class="nav-left">
@@ -58,11 +84,14 @@
                     <a class="submit-link" href="./studentHome.jsp">Exit the exam</a>
                 </button>
                 <div class="static-items">
-                    <p id="MyClockDisplay" class="clock"></p>
-                    <button class="btn submit-btn btn-primary">
-                        <a class="submit-link" href="#" onclick="grading(key)">Submit</a>
-                    </button>
+
+                    <p id="MyClockDisplay" class="clock">_h _m _s</p>
+                    <div class="btn submit-btn btn-danger" style="font-size: 2em; font-family: Orbitron;" >
+                        <b>Remaining Time</b> 
+                    </div>
+
                 </div>
+
             </nav>
             <div class="content-container">
                 <div class="exam-header">
@@ -78,7 +107,7 @@
 
 
                 <br/><br/><br/>    
-                <form action="evaluate" method="POST">
+                <form action="takeExam" method="POST">
 
                     <div class="exam-info">
                         <div class="exam-course-name">
@@ -97,7 +126,7 @@
                                 Thời gian kết thúc: <%=convertDateTime.calculate_Endtime(exam.getExam_time_start(), exam.getExam_duration())%></div>
                         </div>
                     </div>
-
+              
                     <%
                         if (question_list != null) {
                             int quescount = 1;
@@ -112,23 +141,23 @@
                             <h5 class="question-content"><%=q.getQues_title()%></h5>
 
                             <div class="exam-question-answer">
-                                <div class="answer-box">
-                                    <input type="hidden" name="question<%=quescount%>_option" required="required" value="1">A</div>
+                                <div>
+                                    <input  type="radio" name="question<%=quescount%>_option" required="required" value="1"></div>
                                 <div class="answer-content"><%=q.getAns_choice1()%> </div>
                             </div>
                             <div class="exam-question-answer">
-                                <div class="answer-box">
-                                    <input type="hidden" name="question<%=quescount%>_option" required="required" value="2">B</div>
+                                <div>
+                                    <input type="radio" name="question<%=quescount%>_option" required="required" value="2"></div>
                                 <div class="answer-content"><%=q.getAns_choice2()%></div>
                             </div>
                             <div class="exam-question-answer">
-                                <div class="answer-box">
-                                    <input type="hidden" name="question<%=quescount%>_option" required="required" value="3">C</div>
+                                <div>
+                                    <input type="radio" name="question<%=quescount%>_option" required="required" value="3"></div>
                                 <div class="answer-content"><%=q.getAns_choice3()%></div>
                             </div>
                             <div class="exam-question-answer">
-                                <div class="answer-box">
-                                    <input type="hidden" name="question<%=quescount%>_option" required="required" value="4">D</div>
+                                <div>
+                                    <input type="radio" name="question<%=quescount%>_option" required="required" value="4"></div>
                                 <div class="answer-content"><%=q.getAns_choice4()%></div>
                             </div>
 
@@ -139,46 +168,42 @@
                         }
                     %>
 
+                    <center> <button class="submit-button" onclick="show_correctAns()">Submit</button> </center>
+
                     <br><br>
                 </form>
             </div>
         </div>
         <script>
+            var due = new Date("<%=convertDateTime.getCurrentDate()%> <%=convertDateTime.Endtime(convertDateTime.getCurrentTime(), exam.getExam_duration())%>");
+                var x = setInterval(function () {
 
-// Set the date we're counting down to
-            var countDownDate = new Date("2024-01-05 15:37:25").getTime();
-            var due = new Date("2022-01-30 <%=convertDateTime.Endtime(exam.getExam_time_start(), exam.getExam_duration())%>").getTime();
-            
-// Update the count down every 1 second
-            var x = setInterval(function () {
+                    // Get today's date and time
+                    var now = new Date();
+                    
+                    // Find the distance between now and the count down date
+                    var distance = due - now;
 
-                // Get today's date and time
-                var now = new Date().getTime();
+                    // Time calculations for days, hours, minutes and seconds
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                // Find the distance between now and the count down date
-                var distance = due - now;
+                    // Output the result in an element with id="demo"
+                    document.getElementById("MyClockDisplay").innerHTML = hours + "h "
+                            + minutes + "m " + seconds + "s ";
 
-                // Time calculations for days, hours, minutes and seconds
-                
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                // Output the result in an element with id="demo"
-                document.getElementById("MyClockDisplay").innerHTML = hours + "h "
-                        + minutes + "m " + seconds + "s ";
-
-                // If the count down is over, write some text 
-                if (distance < 0) {
-                    clearInterval(x);
-                    document.getElementById("MyClockDisplay").innerHTML = "EXPIRED";
-                }
-            }, 1000);
-
+                    // If the count down is over, write some text 
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById("MyClockDisplay").innerHTML = "<%=convertDateTime.getCurrentTime()%>";
+                        console.log('Hết giờ làm bài thi!');
+                    }
+                }, 1000);
 
         </script>
     </body>
-    <!-- comment <script src="./timeManager.js"></script>-->
     <script src="./checkboxQuestion.js"></script>
     <script src="./radioQuestion.js"></script>
 

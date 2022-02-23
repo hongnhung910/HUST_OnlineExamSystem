@@ -29,7 +29,7 @@ public class QuestionsDAO {
             OnlineExamDAO examDAO = new OnlineExamDAO();
             Exam exam = examDAO.getExamInfo(conn, exam_id);
             int num_questions = exam.getExam_total_question();
-            query = "select * from exam_question_bank where examID=? order by rand ()";
+            query = "select * from exam_question_bank where examID=? order by rand () limit 5";
             pst = conn.prepareStatement(query);
             pst.setString(1, exam_id);
             //pst.setInt(2, num_questions);
@@ -43,7 +43,7 @@ public class QuestionsDAO {
                 ques.setAns_choice2(rs.getString("ans_choice2"));
                 ques.setAns_choice3(rs.getString("ans_choice3"));
                 ques.setAns_choice4(rs.getString("ans_choice4"));
-                ques.setAns_correct(rs.getString("ans_correct"));
+                ques.setAns_correct(rs.getInt("ans_correct"));
                 list.add(ques);
                         }
         } catch (Exception e) {

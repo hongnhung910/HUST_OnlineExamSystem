@@ -12,9 +12,8 @@ public class TakeExam {
     private int stdID;
     private String examID;
     private String take_examID;
-    private String startDate;
+    private String submitTime;
     private String startTime;
-    private String duration;
     private float grade;
     private String status;
 
@@ -42,13 +41,7 @@ public class TakeExam {
         this.take_examID = take_examID;
     }
 
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
+    
 
     public String getStartTime() {
         return startTime;
@@ -58,14 +51,14 @@ public class TakeExam {
         this.startTime = startTime;
     }
 
-    public String getDuration() {
-        return duration;
+    public String getSubmitTime() {
+        return submitTime;
     }
 
-    public void setDuration(String duration) {
-        this.duration = duration;
+    public void setSubmitTime(String submitTime) {
+        this.submitTime = submitTime;
     }
-
+    
     public float getGrade() {
         return grade;
     }

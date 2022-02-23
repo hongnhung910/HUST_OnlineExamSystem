@@ -24,7 +24,7 @@
         request.setAttribute("user", user);
     }
     Connection conn = MySQLConnUtils.getSQLServerConnection();
-    List<TakeExam> takeExams = TakeExamDAO.getAllTakeExam(conn, user.getStd_id());
+    List<TakeExam> takeExams = TakeExamDAO.getComingExam(conn, user.getStd_id());
 %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -45,8 +45,7 @@
         <link rel="stylesheet" type="text/css" href="index.css">
         <link rel="stylesheet" type="text/css" href="lecturerHome.css">
     </head>
-    <body>
-
+    <body style="padding-bottom: 0;">
         <!--Navigation Bar-->
         <%@include file="studentNavbar.jsp"%>
         <div class="container" style="padding: 50px; color: #696969;">

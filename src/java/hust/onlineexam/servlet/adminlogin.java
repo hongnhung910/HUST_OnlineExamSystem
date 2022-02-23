@@ -1,16 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package hust.onlineexam.servlet;
 
+import hust.onlineexam.dbobjects.Teacher;
+import hust.onlineexam.utils.DBUtils;
+import hust.onlineexam.utils.MySQLConnUtils;
+import hust.onlineexam.utils.MyUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,65 +43,61 @@ public class adminlogin extends HttpServlet {
             out.println("<head>");
             out.println("<title>HUST</title>");            
             out.println("</head>");
-            
-            String email = request.getParameter("email");
-            String pass = request.getParameter("pass");
-            
-            Connection conn = null;
-            PreparedStatement ps = null;
-            ResultSet rs = null;
-            
-            String driverName="com.mysql.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/login_accounts?characterEncoding=utf8";
-            String dbuser = "root";
-            String dbpass = "Meoluoi910@";
-            String sql = "select * from accounts where email=? and password=?";
-            
-            String id = "";
-            String emailid = "";
-            
-            
-           
-            
-            try{
-                if(email!=null){
-                    
-                    Class.forName(driverName);
-                    conn=DriverManager.getConnection(url, dbuser, dbpass);
-                    ps=conn.prepareStatement(sql);
-                    ps.setString(1, email);
-                    ps.setString(2, pass);
-                    
-                    rs=ps.executeQuery();
-                    
-                    if(rs.next()){
-                        HttpSession hs = request.getSession();
-                        hs.setAttribute("id", id);
-                        hs.setAttribute("email", emailid);
-                        RequestDispatcher rd = request.getRequestDispatcher("adminhome.jsp");
-                        rd.forward(request, response);
-                    }
-                    else{
-                        HttpSession hs = request.getSession();
-                        RequestDispatcher d = request.getRequestDispatcher("adminlogin.jsp");
-                        hs.setAttribute("err", "User Credentials Incorrect");
-                        hs.removeAttribute("email");
-                        hs.removeAttribute("pass");
-                        d.forward(request,response);
-                        rs.close();
-                        ps.close();
-                    }
-                }
-                
             out.println("<body>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-            catch(Exception e){
+            String email = request.getParameter("admin_email");
+            String pass = request.getParameter("admin_pass");
+            System.out.println("LOGIN INFO: email-"+email+"; pass-"+pass);
+            Teacher user = null;
+            boolean hasError = false;
+            String errorString = null;
                 
+            if (email == null || pass == null || email.length() == 0 || pass.length() == 0) {
+                hasError = true;
+                errorString = "Required email and password!";
+            } else {
+                Connection conn = MySQLConnUtils.getSQLServerConnection();
+                try {
+                    // Find the user in the DB.
+                    user = DBUtils.findTeacher(conn, email, pass);
+
+                    if (user == null) {
+                        hasError = true;
+                        errorString = "Email or password invalid";
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    hasError = true;
+                    errorString = e.getMessage();
+                }
             }
+            
+            if (hasError) {
+                user = new Teacher();
+                user.setTea_email(email);
+                user.setTea_password(pass);
+
+                // Store information in request attribute, before forward.
+                request.setAttribute("err", errorString);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+                
+                dispatcher.forward(request, response);
+            } else {
+                errorString = "";
+                HttpSession session = request.getSession();
+                request.getSession().setAttribute("user", user);
+                request.setAttribute("err", errorString);
+                MyUtils.storeLoginedTeacher(session, user);
+                
+                // Redirect to userInfo page.
+                response.sendRedirect("lecturerHome.jsp");
+            }
+            out.println("</body>"); out.println("</html>");
+
+        } catch(Exception e) {
+             
+             }
         }
-    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

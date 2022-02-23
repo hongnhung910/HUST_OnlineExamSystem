@@ -51,7 +51,7 @@ public class DBUtils {
     public static Teacher findTeacher(Connection conn, //
             String email, String password) throws SQLException {
 
-        String sql = "SELECT * FROM teachers WHERE email = ? and password = ?";
+        String sql = "SELECT * FROM teachers WHERE teaEmail = ? and teaPassword = ?";
 
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.setString(1, email);
@@ -60,10 +60,10 @@ public class DBUtils {
 
         if (rs.next()) {
 
-            int tea_id = rs.getInt("tea_id");
-            String tea_name = rs.getString("tea_name");
-            String tea_phone = rs.getString("tea_phone");
-            
+            String tea_id = rs.getString("teaID");
+            String tea_name = rs.getString("teaName");
+            String tea_phone = rs.getString("teaPhone");
+            System.out.println("TEACHER NAME: "+ tea_name);
             Teacher user = new Teacher();
             user.setTea_email(email);
             user.setTea_password(password);

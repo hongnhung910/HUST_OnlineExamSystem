@@ -57,15 +57,13 @@ public class convertDateTime {
         minutes += Double.parseDouble(split[2]) / 60;
         return String.valueOf((int) minutes) + " phút";
     }
-    
 
     public static String calculate_Endtime(String start, String duration) throws ParseException {
         SimpleDateFormat timeformat = new SimpleDateFormat("hh:mm:ss");
         Date startTime = timeformat.parse(start);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startTime);
-        
-        
+
         int minutes = 0;
         String[] split = duration.split(":");
 
@@ -78,22 +76,41 @@ public class convertDateTime {
         SimpleDateFormat newFormat_time = new SimpleDateFormat("hh:mm aa");
         return newFormat_time.format(calendar.getTime());
     }
+
     public static String Endtime(String start, String duration) throws ParseException {
-        SimpleDateFormat timeformat = new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat timeformat = new SimpleDateFormat("kk:mm:ss");
         Date startTime = timeformat.parse(start);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startTime);
-        
-        
-        int minutes = 0;
+
+        int minutes;
+        int hours;
+        int seconds = 0;
         String[] split = duration.split(":");
-
-        minutes += Integer.parseInt(split[0]) * 60;
-        minutes += Integer.parseInt(split[1]);
-        minutes += Integer.parseInt(split[2]) / 60;
-
+        hours = Integer.parseInt(split[0]);
+        minutes = Integer.parseInt(split[1]);
+        calendar.add(Calendar.HOUR, hours);
         calendar.add(Calendar.MINUTE, minutes);
-
+        calendar.add(Calendar.SECOND, seconds);
+        System.out.println("End Time: "+ timeformat.format(calendar.getTime()));
         return timeformat.format(calendar.getTime());
     }
+
+    public static String getCurrentDate() {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String str = formatter.format(date);
+        System.out.println("Current Date: "+ str);
+        return str;
+    }
+    
+    public static String getCurrentTime() {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("kk:mm:ss");
+        String str = formatter.format(date);
+        System.out.println("Current Time: "+ str);
+        return str;
+    }
+
+
 }

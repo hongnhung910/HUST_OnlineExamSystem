@@ -1,7 +1,9 @@
 <%-- 
-    Document   : addExam
+    Document   : addQuestion
+    Created on : Feb 23, 2022, 7:19:52 PM
     Author     : hongn
 --%>
+
 <%@page import="hust.onlineexam.dbobjects.Teacher"%>
 <%@page import="hust.onlineexam.utils.courseDAO"%>
 <%@page import="hust.onlineexam.dbobjects.Course"%>
@@ -74,65 +76,42 @@
             <div class="card" style="margin-top:100px;">
                 <h5 class="card-header text-center font-weight-bold"><%=courseID%> - <%=courseInfo.getCourse_name()%></h5>
                 <div class="card-body">
-                    <form role="form" action="addExamtoDB" method="post">
+                    <form role="form" action="addQuestiontoDB" method="post">
 
                         <div class="form-group">
-                            <label>Tên bài thi</label>
-                            <input type="text" class="form-control" name="examName" required>
+                            <label>Câu hỏi</label>
+                            <textarea class="form-control" name="ques_title" placeholder="Nội dung câu hỏi" required=""></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Đáp án 1</label>
+                            <input type="text" class="form-control" name="ans1" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Đáp án 2</label>
+                            <input type="text" class="form-control" name="ans2" required>
                             <!-- Error -->
                             <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">
-                            <label>Mã bài thi</label>
-                            <input type="text" class="form-control" name="examID" placeholder="<%=courseID%>_" required>
-
+                            <label>Đáp án 3</label>
+                            <input type="text" class="form-control" name="ans3" required>
                         </div>
                         <div class="form-group">
-                            <label>Ngày thi</label>
-                            <input type="date" class="form-control" name="examDateStart" required>
-                            <!-- Error -->
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <div class="form-group">
-                            <label>Thời gian bắt đầu</label>
-                            <input type="time" class="form-control" name="examTimeStart" required>
-                            <!-- Error -->
-                            <div class="help-block with-errors"></div>
-                        </div>
-                        <div class="form-group">
-                            <label>Thời gian làm bài</label>
-                            <div class="form-control" style="display: inline-flex;">
-                                <input type="number" min="0" max="23" placeholder="01" name="hourDuration" style="border: none; color: #555; text-align: center;"> giờ :
-                                <input type="number" min="0" max="59" placeholder="00" name="minDuration" style="border: none; color: #555; text-align: center;"> phút
-                            </div>
-                            <!--<input type="time" class="form-control" id="" required>
-                             Error -->
-                            <div class="help-block with-errors"></div>
+                            <label>Đáp án 4</label>
+                            <input type="text" class="form-control" name="ans4" required>
                         </div>
 
                         <div class="form-group">
-                            <label>Số câu hỏi trong đề thi</label>
+                            <label>Đáp án đúng</label>
                             <div class="form-group">
-                                <input type="number" class="form-control" name="num_ques" required />
+                                <input type="number" class="form-control" name="ans_correct"  min="1" max="4" required />
 
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Điểm cho mỗi câu đúng</label>
-                            <div class="form-group">
-                                <input type="number" class="form-control" name="mark_correct" required /> 
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Điểm trừ cho mỗi câu sai</label>
-                            <div class="form-group">
-                                <input type="number" class="form-control" name="mark_incorrect" required />
-
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-dark btn-block">Tạo thư viện câu hỏi</button>
+                            <button type="submit" class="btn btn-dark btn-block">ADD</button>
                         </div>
                     </form>
                 </div>

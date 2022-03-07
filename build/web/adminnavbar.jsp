@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#" style="color: #696969; font-size: 18px"><b>Courses</b></a>
+                    <a class="nav-link" href="lecturerHome.jsp" style="color: #696969; font-size: 18px"><b>Courses and Exams</b></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" style="color: #696969; font-size: 18px">Profile</a>

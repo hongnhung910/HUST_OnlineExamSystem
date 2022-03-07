@@ -1,6 +1,5 @@
 <%-- 
     Document   : addExam
-    Created on : Feb 23, 2022, 1:36:36 PM
     Author     : hongn
 --%>
 <%@page import="hust.onlineexam.dbobjects.Teacher"%>

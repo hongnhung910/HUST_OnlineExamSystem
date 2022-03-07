@@ -6,14 +6,13 @@ package hust.onlineexam.servlet;
 
 import hust.onlineexam.dbobjects.Teacher;
 import hust.onlineexam.utils.MySQLConnUtils;
-import hust.onlineexam.utils.OnlineExamDAO;
+import hust.onlineexam.utils.QuestionsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,8 +24,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author hongn
  */
-@WebServlet(name = "addExamtoDB", urlPatterns = {"/addExamtoDB"})
-public class addExamtoDB extends HttpServlet {
+@WebServlet(name = "addQuestiontoDB", urlPatterns = {"/addQuestiontoDB"})
+public class addQuestiontoDB extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,32 +41,32 @@ public class addExamtoDB extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession(false);
             Teacher user= (Teacher) session.getAttribute("user");
-            String teaID = user.getTea_id();
-            String exam_name = request.getParameter("examName");
-            String exam_time_start = request.getParameter("examTimeStart");
-            String exam_date_start = request.getParameter("examDateStart");;
-            String exam_duration = request.getParameter("hourDuration") + ":" + request.getParameter("minDuration") + ":00";
-            int total_ques = Integer.parseInt(request.getParameter("num_ques"));
-            float mark_correct = Float.parseFloat(request.getParameter("mark_correct"));
-            float mark_incorrect = Float.parseFloat(request.getParameter("mark_incorrect"));
-            String examID = request.getParameter("examID");       
-            String courseID = (String) session.getAttribute("courseID");
-            request.getSession().setAttribute("examID", examID);
-            boolean addExam = false;
+            String examID= (String) session.getAttribute("examID");
+            String ques_title = request.getParameter("ques_title");
+            String ans1 = request.getParameter("ans1");
+            String ans2 = request.getParameter("ans2");
+            String ans3 = request.getParameter("ans3");
+            String ans4 = request.getParameter("ans4");
+            
+            
+            int ans_correct = Integer.parseInt(request.getParameter("ans_correct"));
+            boolean addQuestion = false;
+            Connection conn;
             try {
-                Connection conn = MySQLConnUtils.getSQLServerConnection();
-                addExam = OnlineExamDAO.insertExam(conn, examID, exam_name, exam_time_start, exam_duration, total_ques, mark_correct, mark_incorrect, courseID, teaID, exam_date_start);
-                if (addExam) {
-                    response.sendRedirect("addQuestion.jsp");
-                }
+                conn = MySQLConnUtils.getSQLServerConnection();
+                int numofQuestion = QuestionsDAO.getNumofQuestions(conn, examID);
+                numofQuestion=numofQuestion+1;
+                String quesID = examID+"_"+String.valueOf(numofQuestion);
+                addQuestion = QuestionsDAO.insertQuestion(conn, examID, quesID, ques_title, ans1, ans2, ans3, ans4, ans_correct);
+                response.sendRedirect("addQuestion.jsp");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(addExamtoDB.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(addQuestiontoDB.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
-                Logger.getLogger(addExamtoDB.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(addQuestiontoDB.class.getName()).log(Level.SEVERE, null, ex);
             }
+           
         }
     }
 
